@@ -3,63 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password</title>
+    <title>Password Reset</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
+            margin: 0;
         }
 
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            margin-bottom: 20px;
-        }
-
-        input[type="email"], input[type="password"] {
+        .reset-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            max-width: 400px;
+            box-sizing: border-box;
         }
 
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-        }
+            .reset-form h2 {
+                margin-bottom: 20px;
+            }
 
-            input[type="submit"]:hover {
-                background-color: #0056b3;
+            .reset-form input {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            .reset-form button {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background: #5cb85c;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+                .reset-form button:hover {
+                    background: #4cae4c;
+                }
+
+            .reset-form p {
+                margin: 10px 0 0;
+                font-size: 14px;
             }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Reset Password</h2>
-        <form action="/reset-confirm" method="POST">
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            <input type="password" id="new-password" name="new-password" placeholder="Enter new password" required>
-            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm new password" required>
-            <input type="submit" value="Reset Password">
+    <div class="reset-form">
+        <h2>Reset Your Password</h2>
+        <form id="resetPasswordForm">
+            <input type="password" id="newPassword" placeholder="New Password" required><br>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required><br>
+            <button type="submit">Reset Password</button>
         </form>
+        <p id="message"></p>
     </div>
+
+    <script>
+        document.getElementById('resetPasswordForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var newPassword = document.getElementById('newPassword').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+            var message = document.getElementById('message');
+
+            if (newPassword === confirmPassword) {
+                message.textContent = "Password successfully changed!";
+                message.style.color = "green";
+                // Here you would typically send the passwords to the server (AJAX call)
+                // Example:
+                // fetch('/reset-password', {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json'
+                //     },
+                //     body: JSON.stringify({ newPassword: newPassword })
+                // }).then(response => {
+                //     return response.json();
+                // }).then(data => {
+                //     if (data.success) {
+                //         message.textContent = "Password successfully changed!";
+                //     } else {
+                //         message.textContent = "Error: " + data.message;
+                //     }
+                // });
+            } else {
+                message.textContent = "Passwords do not match!";
+                message.style.color = "red";
+            }
+        });
+    </script>
 </body>
 </html>
