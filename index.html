@@ -98,23 +98,7 @@
             if (newPassword === confirmPassword) {
                 message.textContent = "Password successfully changed!";
                 message.style.color = "green";
-                // Here you would typically send the passwords to the server (AJAX call)
-                // Example:
-                // fetch('/reset-password', {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json'
-                //     },
-                //     body: JSON.stringify({ newPassword: newPassword })
-                // }).then(response => {
-                //     return response.json();
-                // }).then(data => {
-                //     if (data.success) {
-                //         message.textContent = "Password successfully changed!";
-                //     } else {
-                //         message.textContent = "Error: " + data.message;
-                //     }
-                // });
+                
             } else {
                 message.textContent = "Passwords do not match!";
                 message.style.color = "red";
